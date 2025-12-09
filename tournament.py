@@ -16,6 +16,9 @@ LIGHT_BLUE = (135, 206, 250)
 GREEN = (60, 179, 113)
 GOLD = (255, 215, 0)
 ORANGE = (255, 165, 0)
+RED = (220, 60, 60)
+BUTTON_COLOR = (70, 130, 220)
+BUTTON_HOVER = (100, 160, 250)
 
 
 @dataclass
@@ -131,10 +134,11 @@ class TournamentBracket:
 class TournamentBracketGUI:
     """Interactive pygame GUI for tournament brackets."""
     
-    def __init__(self, bracket: TournamentBracket, width: int = 1400, height: int = 800):
+    def __init__(self, bracket: TournamentBracket, initial_participants: List[str], width: int = 1400, height: int = 800):
         pygame.init()
         
         self.bracket = bracket
+        self.initial_participants = initial_participants
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((width, height))
@@ -144,6 +148,7 @@ class TournamentBracketGUI:
         self.round_font = pygame.font.Font(None, 32)
         self.player_font = pygame.font.Font(None, 24)
         self.small_font = pygame.font.Font(None, 20)
+        self.button_font = pygame.font.Font(None, 28)
         
         self.match_width = 200
         self.match_height = 80
@@ -151,9 +156,13 @@ class TournamentBracketGUI:
         
         self.selected_match: Optional[Tuple[int, int]] = None
         self.hovered_player: Optional[Tuple[int, int, int]] = None
+        self.hovered_button = False
         
         self.scroll_offset = 0
         self.show_instructions = True
+        
+        # Reset button
+        self.reset_button_rect = pygame.Rect(self.width - 150, 20, 130, 40)
         
         self.clock = pygame.time.Clock()
     
@@ -178,6 +187,8 @@ class TournamentBracketGUI:
                         self.selected_match = None
                     elif event.key == pygame.K_h:
                         self.show_instructions = not self.show_instructions
+                    elif event.key == pygame.K_r:
+                        self.reset_tournament()
             
             self._draw()
             pygame.display.flip()
@@ -200,6 +211,9 @@ class TournamentBracketGUI:
         title_surface = self.title_font.render(title_text, True, title_color)
         title_rect = title_surface.get_rect(center=(self.width // 2, 40))
         self.screen.blit(title_surface, title_rect)
+        
+        # Draw reset button
+        self._draw_reset_button()
         
         self._draw_rounds()
         self._draw_connections()
@@ -326,10 +340,29 @@ class TournamentBracketGUI:
                     match2_y = start_y + 50 + match2_idx * current_spacing + self.match_height // 2 + self.scroll_offset
                     pygame.draw.line(self.screen, BLUE, (current_x, match2_y), (next_x, next_y), 2)
     
+    def _draw_reset_button(self):
+        """Draw the reset button."""
+        button_color = BUTTON_HOVER if self.hovered_button else BUTTON_COLOR
+        
+        # Shadow
+        shadow_rect = self.reset_button_rect.copy()
+        shadow_rect.x += 2
+        shadow_rect.y += 2
+        pygame.draw.rect(self.screen, DARK_GRAY, shadow_rect, border_radius=5)
+        
+        # Button
+        pygame.draw.rect(self.screen, button_color, self.reset_button_rect, border_radius=5)
+        pygame.draw.rect(self.screen, WHITE, self.reset_button_rect, 2, border_radius=5)
+        
+        # Text
+        text_surface = self.button_font.render("Reset (R)", True, WHITE)
+        text_rect = text_surface.get_rect(center=self.reset_button_rect.center)
+        self.screen.blit(text_surface, text_rect)
+    
     def _draw_instructions(self):
         instructions = [
             "Click on a match, then click a player to select winner",
-            "Press H to hide/show instructions",
+            "Press H to hide/show instructions | Press R to reset",
             "Press ESC to cancel selection",
             "Scroll to navigate"
         ]
@@ -356,8 +389,19 @@ class TournamentBracketGUI:
             
             self.screen.blit(prompt_surface, prompt_rect)
     
+    def reset_tournament(self):
+        """Reset the tournament to initial state."""
+        self.bracket = TournamentBracket(self.initial_participants)
+        self.selected_match = None
+        self.scroll_offset = 0
+    
     def _handle_click(self, pos: Tuple[int, int]):
         mx, my = pos
+        
+        # Check if clicking reset button
+        if self.reset_button_rect.collidepoint(mx, my):
+            self.reset_tournament()
+            return
         
         if self.selected_match:
             round_num, match_idx = self.selected_match
@@ -418,6 +462,9 @@ class TournamentBracketGUI:
         mx, my = pos
         self.hovered_player = None
         
+        # Check if hovering over reset button
+        self.hovered_button = self.reset_button_rect.collidepoint(mx, my)
+        
         if self.selected_match:
             round_num, match_idx = self.selected_match
             match = self.bracket.matches[round_num - 1][match_idx]
@@ -448,19 +495,18 @@ class TournamentBracketGUI:
 
 
 if __name__ == "__main__":
-    participants = [
-        "Alice", "Bob", "Charlie", "David",
-        "Eve", "Frank", "Grace", "Henry"
-    ]
+    # Generate 32 participants
+    participants = [f"Player {i+1}" for i in range(32)]
     
     print("Creating interactive tournament bracket...")
     print("Instructions:")
     print("- Click on a match to select it")
     print("- Click on a player name to select them as the winner")
     print("- Press H to toggle instructions")
+    print("- Press R or click Reset button to restart tournament")
     print("- Press ESC to cancel selection")
-    print("\nStarting GUI...")
+    print("\nStarting GUI with 32 participants...")
     
     bracket = TournamentBracket(participants)
-    gui = TournamentBracketGUI(bracket)
+    gui = TournamentBracketGUI(bracket, participants)
     gui.run()
