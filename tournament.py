@@ -182,6 +182,17 @@ class TournamentBracketGUI:
         
         self.clock = pygame.time.Clock()
     
+    def _get_match_spacing(self, num_matches: int) -> float:
+        """Calculate match spacing ensuring no overlap."""
+        available_height = self.height - 120 - 150
+        min_spacing_needed = self.match_height + 10
+        total_height_needed = num_matches * min_spacing_needed
+        
+        if total_height_needed > available_height:
+            return min_spacing_needed
+        else:
+            return available_height / max(num_matches, 1)
+    
     def run(self):
         running = True
         
@@ -254,8 +265,7 @@ class TournamentBracketGUI:
             self.screen.blit(round_surface, round_rect)
             
             num_matches = len(round_matches)
-            available_height = self.height - start_y - 150
-            match_spacing = available_height / max(num_matches, 1)
+            match_spacing = self._get_match_spacing(num_matches)
             
             for idx, match in enumerate(round_matches):
                 y = start_y + 50 + idx * match_spacing + self.scroll_offset
@@ -338,9 +348,8 @@ class TournamentBracketGUI:
             current_x = 50 + round_num * round_spacing - round_spacing / 2 + self.match_width // 2
             next_x = 50 + (round_num + 1) * round_spacing - round_spacing / 2 - self.match_width // 2
             
-            available_height = self.height - start_y - 150
-            current_spacing = available_height / max(len(current_matches), 1)
-            next_spacing = available_height / max(len(next_matches), 1)
+            current_spacing = self._get_match_spacing(len(current_matches))
+            next_spacing = self._get_match_spacing(len(next_matches))
             
             for idx, next_match in enumerate(next_matches):
                 next_y = start_y + 50 + idx * next_spacing + self.match_height // 2 + self.scroll_offset
@@ -429,8 +438,7 @@ class TournamentBracketGUI:
                 
                 x = 50 + round_num * round_spacing - round_spacing / 2
                 num_matches = len(self.bracket.matches[round_num - 1])
-                available_height = self.height - start_y - 150
-                match_spacing = available_height / max(num_matches, 1)
+                match_spacing = self._get_match_spacing(num_matches)
                 y = start_y + 50 + match_idx * match_spacing + self.scroll_offset
                 
                 box_rect = pygame.Rect(
@@ -456,8 +464,7 @@ class TournamentBracketGUI:
             
             x = 50 + round_num * round_spacing - round_spacing / 2
             num_matches = len(round_matches)
-            available_height = self.height - start_y - 150
-            match_spacing = available_height / max(num_matches, 1)
+            match_spacing = self._get_match_spacing(num_matches)
             
             for idx, match in enumerate(round_matches):
                 y = start_y + 50 + idx * match_spacing + self.scroll_offset
@@ -491,8 +498,7 @@ class TournamentBracketGUI:
                 
                 x = 50 + round_num * round_spacing - round_spacing / 2
                 num_matches = len(self.bracket.matches[round_num - 1])
-                available_height = self.height - start_y - 150
-                match_spacing = available_height / max(num_matches, 1)
+                match_spacing = self._get_match_spacing(num_matches)
                 y = start_y + 50 + match_idx * match_spacing + self.scroll_offset
                 
                 box_rect = pygame.Rect(
