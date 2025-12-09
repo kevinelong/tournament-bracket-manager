@@ -144,15 +144,31 @@ class TournamentBracketGUI:
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption("Tournament Bracket")
         
-        self.title_font = pygame.font.Font(None, 48)
-        self.round_font = pygame.font.Font(None, 32)
-        self.player_font = pygame.font.Font(None, 24)
-        self.small_font = pygame.font.Font(None, 20)
-        self.button_font = pygame.font.Font(None, 28)
+        # Calculate scaling based on number of participants
+        self.num_participants = len(initial_participants)
+        self.num_rounds = bracket.num_rounds
         
-        self.match_width = 200
-        self.match_height = 80
-        self.player_height = 35
+        # Scale fonts based on participant count
+        if self.num_participants <= 8:
+            title_size, round_size, player_size, small_size, button_size = 48, 32, 24, 20, 28
+            self.match_width, self.match_height = 200, 80
+        elif self.num_participants <= 16:
+            title_size, round_size, player_size, small_size, button_size = 42, 28, 20, 18, 24
+            self.match_width, self.match_height = 180, 70
+        elif self.num_participants <= 32:
+            title_size, round_size, player_size, small_size, button_size = 36, 24, 18, 16, 22
+            self.match_width, self.match_height = 160, 60
+        else:
+            title_size, round_size, player_size, small_size, button_size = 32, 20, 16, 14, 20
+            self.match_width, self.match_height = 140, 50
+        
+        self.title_font = pygame.font.Font(None, title_size)
+        self.round_font = pygame.font.Font(None, round_size)
+        self.player_font = pygame.font.Font(None, player_size)
+        self.small_font = pygame.font.Font(None, small_size)
+        self.button_font = pygame.font.Font(None, button_size)
+        
+        self.player_height = self.match_height // 2 - 5
         
         self.selected_match: Optional[Tuple[int, int]] = None
         self.hovered_player: Optional[Tuple[int, int, int]] = None
