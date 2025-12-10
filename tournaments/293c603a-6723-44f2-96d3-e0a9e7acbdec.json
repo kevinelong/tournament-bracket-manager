@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "id": "293c603a-6723-44f2-96d3-e0a9e7acbdec",
+    "name": "Championship 2026",
+    "location": "Main Arena",
+    "date_scheduled": "2026-03-15",
+    "time_scheduled": "14:00",
+    "date_created": "2025-12-09T16:47:33.113854"
+  },
+  "participants": [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "Diana",
+    "Eve",
+    "Frank",
+    "Grace",
+    "Henry"
+  ],
+  "bracket": {
+    "participants": [
+      "Alice",
+      "Bob",
+      "Charlie",
+      "Diana",
+      "Eve",
+      "Frank",
+      "Grace",
+      "Henry"
+    ],
+    "matches": [
+      [
+        {
+          "match_id": 0,
+          "player1": "Alice",
+          "player2": "Bob",
+          "winner": null,
+          "round_num": 1
+        },
+        {
+          "match_id": 1,
+          "player1": "Charlie",
+          "player2": "Diana",
+          "winner": null,
+          "round_num": 1
+        },
+        {
+          "match_id": 2,
+          "player1": "Eve",
+          "player2": "Frank",
+          "winner": null,
+          "round_num": 1
+        },
+        {
+          "match_id": 3,
+          "player1": "Grace",
+          "player2": "Henry",
+          "winner": null,
+          "round_num": 1
+        }
+      ],
+      [
+        {
+          "match_id": 4,
+          "player1": null,
+          "player2": null,
+          "winner": null,
+          "round_num": 2
+        },
+        {
+          "match_id": 5,
+          "player1": null,
+          "player2": null,
+          "winner": null,
+          "round_num": 2
+        }
+      ],
+      [
+        {
+          "match_id": 6,
+          "player1": null,
+          "player2": null,
+          "winner": null,
+          "round_num": 3
+        }
+      ]
+    ]
+  }
+}

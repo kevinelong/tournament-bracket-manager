@@ -1089,9 +1089,6 @@ class TournamentBracketGUI:
         title_rect = title_surface.get_rect(center=(self.width // 2, 40))
         self.screen.blit(title_surface, title_rect)
         
-        # Draw reset button
-        self._draw_reset_button()
-        
         self._draw_rounds()
         self._draw_connections()
         
