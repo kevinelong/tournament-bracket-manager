@@ -47,14 +47,63 @@ A modern, interactive tournament bracket manager built with Python and Pygame, f
 
 ## Screenshots
 
-### Main Bracket View
-Tournament brackets with modern styling and visual winner indicators.
+### 1. Tournament List - Multi-Tournament Management
+![Tournament List](screenshots/01_tournaments_list.png)
+*Create and manage multiple tournaments with full metadata tracking*
 
-### Tournament List
-Manage multiple tournaments with metadata (name, location, dates).
+### 2. Tournament Details - Editable Fields
+![Tournament Details](screenshots/02_tournament_details.png)
+*Click any field to edit tournament name, location, date, and time with visual indicators*
 
-### Interactive Tour
-Step-by-step guided tour with pulsing highlights.
+### 3. Player Management
+![Player List](screenshots/03_player_list.png)
+*Add and remove players with a clean, intuitive interface*
+
+### 4. Dynamic Bracket Generation
+![Empty Bracket](screenshots/04_bracket_empty.png)
+*Automatically generated single-elimination brackets with smart bye assignment*
+
+### 5. Interactive Match Selection
+![Match Selected](screenshots/05_match_selected.png)
+*Click matches to select, highlighted with blue glow for clear feedback*
+
+### 6. Winner Declaration
+![Winner Declared](screenshots/06_winner_declared.png)
+*Click player names to declare winners - green checkmarks indicate victors*
+
+### 7. Tournament in Progress
+![Tournament Progress](screenshots/07_tournament_progress.png)
+*Winners automatically advance through rounds with visual tracking*
+
+### 8. Final Results
+![Final Results](screenshots/08_final_results.png)
+*Champion highlighted in gold with complete tournament standings*
+
+### 9. Interactive Tour Mode
+![Tour Welcome](screenshots/09_tour_welcome.png)
+*Press T to start the interactive 13-step guided tour*
+
+### 10. Tour Highlights
+![Tour Highlight](screenshots/10_tour_highlight.png)
+*Pulsing animated borders guide users through each feature*
+
+### 11. Editable Field Interaction
+![Edit Mode](screenshots/11_edit_mode.png)
+*Active editing mode with blinking cursor and modern input styling*
+
+### 12. Dangerous Operations Panel
+![Dangerous Operations](screenshots/12_dangerous_operations.png)
+*Reset and reshuffle options clearly separated with warning styling*
+
+### 13. Modern Glassmorphism UI
+![Modern UI](screenshots/13_glassmorphism.png)
+*2026 design trends with semi-transparent cards, shadows, and smooth gradients*
+
+> **Note:** To capture these screenshots yourself, run:
+> ```bash
+> python capture_screenshots.py
+> ```
+> Then press SPACE at each mode to save screenshots. Navigate through all tabs and features.
 
 ## Installation
 
@@ -232,6 +281,45 @@ Contributions are welcome! Please follow these guidelines:
 - [ ] Multi-language support
 - [ ] Cloud sync option
 - [ ] Mobile companion app
+
+## Capturing Screenshots
+
+To capture screenshots for documentation:
+
+### Using the Screenshot Tool
+
+1. **Run the screenshot utility**:
+```bash
+python capture_screenshots.py
+```
+
+2. **Navigate through the app** and capture each mode:
+   - Press **SPACE** to capture current screen
+   - Press **T** to activate tour mode
+   - Press **Q** to quit and save all screenshots
+
+3. **Suggested screenshots** to capture:
+   - Tournaments list tab
+   - Current tournament with editable fields  
+   - Player list with several players
+   - Empty bracket after generation
+   - Bracket with selected match
+   - Bracket with winners declared
+   - Final results tab
+   - Tour mode welcome screen
+   - Tour mode with highlighted element
+   - Dangerous operations panel
+
+4. Screenshots are saved to `./screenshots/` directory
+
+### Manual Screenshots
+
+You can also use standard screenshot tools:
+- **Windows**: `Win + Shift + S` (Snipping Tool)
+- **macOS**: `Cmd + Shift + 4`
+- **Linux**: `gnome-screenshot` or similar
+
+Recommended size: 1400x800 (app window size)
 
 ## License
 
