@@ -39,3 +39,21 @@ Thumbs.db
 
 # Project specific
 *.log
+
+# --- dependency stores, caches and build output (added 2026-11-05) ---
+node_modules/
+bower_components/
+.deno/
+virtualenv/
+site-packages/
+.pytest_cache/
+.mypy_cache/
+.tox/
+.gradle/
+.next/
+.nuxt/
+.parcel-cache/
+target/
+Pods/
+DerivedData/
+.cache/
